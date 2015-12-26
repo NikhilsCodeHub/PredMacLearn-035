@@ -3,3 +3,7 @@ lattice
 ggplot2
 caret
 randomForest
+rpart
+survival
+gbm
+plyr

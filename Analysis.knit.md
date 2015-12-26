@@ -4,7 +4,7 @@ output:
         html_document
 ---
 
-### Description 
+## Description 
 
 In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. 
 The objective of the project is to predict the manner in which they did the exercise.
@@ -21,7 +21,7 @@ The data for this project is obtained from this source: http://groupware.les.inf
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-### Analysis
+## Analysis
 
 #### Download Data.
 
@@ -183,7 +183,8 @@ d_fit
 ## D    0    0   23 1906    1 0.0124352332
 ## E    0    0    2    9 2154 0.0050808314
 ```
-From above it's observed that the Out-Of-Bag error rate is `0.51%`
+From above it's observed that the Out-Of-Bag error rate is `0.58%`.
+We also see that the model is built with 7 variables at each split.
 
 #### Variable Importance Plot
 Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.
@@ -192,7 +193,7 @@ Here lets observe which features were considered in the model and it's importanc
 varImpPlot(d_fit, sort = TRUE, n.var = 15 , main = "Variable Importance Plot", pch=16, type = 1)
 ```
 
-<img src="Analysis_files/figure-html/unnamed-chunk-10-1.png" title="" alt="" width="672" />
+<img src="varimportance.png" title="" alt="" width="672" />
 
 #### Validating the model
 Here we'll predict the `classe` outcome for out partitioned test data from the training set. 
@@ -239,7 +240,7 @@ confusionMatrix(t_test$classe, p$pred_t_test)
 ## Detection Prevalence   0.2845   0.1935   0.1744   0.1639   0.1838
 ## Balanced Accuracy      0.9958   0.9936   0.9953   0.9987   0.9978
 ```
-From above metrics, it appears that our model Accuracy of 99.3%.
+From above metrics, it appears that our model Accuracy of 99%.
 This is a very confident measure, so now we can run the test dataset on this model for prediction.
 
 #### Predicting on the given test dataset.
@@ -272,7 +273,7 @@ pml_write_files(pred_pml_test)
 
 ## Summary
 
-The estimated error rate of our model is quite low 0.7% and the cross validation Accuracy is 99%. We can conclude that the predictions on Test Dataset will be quite accurate.
+The estimated error rate of our model is quite low 0.58% and the cross validation Accuracy is 99%. We can conclude that the predictions on Test Dataset will be quite accurate.
 
 
 ```

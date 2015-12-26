@@ -4,7 +4,7 @@ output:
         html_document
 ---
 
-### Description 
+## Description 
 
 In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. 
 The objective of the project is to predict the manner in which they did the exercise.
@@ -21,7 +21,7 @@ The data for this project is obtained from this source: http://groupware.les.inf
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-### Analysis
+## Analysis
 
 #### Download Data.
 ```{r eval=FALSE}
@@ -114,11 +114,12 @@ d_fit <- randomForest(as.factor(classe)~., data = t_train, importance = TRUE, nt
 d_fit
 
 ```
-From above it's observed that the Out-Of-Bag error rate is `0.51%`
+From above it's observed that the Out-Of-Bag error rate is `0.58%`.
+We also see that the model is built with 7 variables at each split.
 
 #### Variable Importance Plot
 Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.
-```{r}
+```{r }
 
 varImpPlot(d_fit, sort = TRUE, n.var = 15 , main = "Variable Importance Plot", pch=16, type = 1)
 
@@ -135,7 +136,7 @@ p<- data.frame(pred_t_test, stringsAsFactors = FALSE)
 confusionMatrix(t_test$classe, p$pred_t_test)
 
 ```
-From above metrics, it appears that our model Accuracy of 99.3%.
+From above metrics, it appears that our model Accuracy of 99%.
 This is a very confident measure, so now we can run the test dataset on this model for prediction.
 
 #### Predicting on the given test dataset.
@@ -161,7 +162,7 @@ pml_write_files(pred_pml_test)
 
 ## Summary
 
-The estimated error rate of our model is quite low 0.7% and the cross validation Accuracy is 99%. We can conclude that the predictions on Test Dataset will be quite accurate.
+The estimated error rate of our model is quite low 0.58% and the cross validation Accuracy is 99%. We can conclude that the predictions on Test Dataset will be quite accurate.
 
 ```{r echo=FALSE}
 pred_pml_test

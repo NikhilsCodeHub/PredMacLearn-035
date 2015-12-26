@@ -1,4 +1,5 @@
-# PredMacLearn-035
+# ReadMe
+
 Practical Machine Learning - Coursera
 
 Project : Activity Tracker Analysis

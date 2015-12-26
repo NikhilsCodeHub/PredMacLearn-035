@@ -1,3 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
+Analysis_cache/
+Analysis_cache/html/

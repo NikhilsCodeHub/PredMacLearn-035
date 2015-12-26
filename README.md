@@ -20,6 +20,8 @@ The data for this project is obtained from this source: http://groupware.les.inf
 Analysis
 --------
 
-Please see the Analysis.rmd file
+Please see the Analysis.Rmd file
+
 Or
+
 http://nikhilscodehub.github.io/PredMacLearn-035/

@@ -19,60 +19,60 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h3>
+      <hr>
 
-<p>In this project, the goal will be to use data from accelerometers on the
-belt, forearm, arm, and dumbell of 6 participants. They were asked to
-perform barbell lifts correctly and incorrectly in 5 different ways. The
-objective of the project is to predict the manner in which they did the
-exercise.</p>
+<p>title: "Activity Tracker Analysis"
+output: </p>
 
-<p>The training data for this project is available here:</p>
+<h2>
+<a id="--------html_document" class="anchor" href="#--------html_document" aria-hidden="true"><span class="octicon octicon-link"></span></a>        html_document</h2>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. 
+The objective of the project is to predict the manner in which they did the exercise.</p>
+
+<p>The training data for this project is available here: </p>
 
 <p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a></p>
 
-<p>The test data is available here:</p>
+<p>The test data is available here: </p>
 
 <p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a></p>
 
-<p>The data for this project is obtained from this source:
-<a href="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</a>.</p>
+<p>The data for this project is obtained from this source: <a href="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</a>. </p>
 
-<p>When you click the <strong>Knit</strong> button a document will be generated that
-includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
 
-<h3>
-<a id="analysis" class="anchor" href="#analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis</h3>
+<h2>
+<a id="analysis" class="anchor" href="#analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis</h2>
 
 <h4>
 <a id="download-data" class="anchor" href="#download-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download Data.</h4>
 
-<pre><code>url_train &lt;- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">url_train</span> <span class="pl-k">&lt;-</span> <span class="pl-s"><span class="pl-pds">"</span>https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv<span class="pl-pds">"</span></span>
 
-url_test &lt;- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+<span class="pl-smi">url_test</span> <span class="pl-k">&lt;-</span> <span class="pl-s"><span class="pl-pds">"</span>https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv<span class="pl-pds">"</span></span>
 
-download.file(url = url_train, destfile = "pml-training.csv")
+download.file(<span class="pl-v">url</span> <span class="pl-k">=</span> <span class="pl-smi">url_train</span>, <span class="pl-v">destfile</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>pml-training.csv<span class="pl-pds">"</span></span>)
 
-download.file(url = url_test, destfile = "pml-testing.csv")
-</code></pre>
+download.file(<span class="pl-v">url</span> <span class="pl-k">=</span> <span class="pl-smi">url_test</span>, <span class="pl-v">destfile</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>pml-testing.csv<span class="pl-pds">"</span></span>)</pre></div>
 
 <h3>
 <a id="getting-and-cleaning-data" class="anchor" href="#getting-and-cleaning-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting and Cleaning Data</h3>
 
-<pre><code>pml_train &lt;- read.csv("pml-training.csv", stringsAsFactors = FALSE, na.strings = c("", " "))
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">pml_train</span> <span class="pl-k">&lt;-</span> read.csv(<span class="pl-s"><span class="pl-pds">"</span>pml-training.csv<span class="pl-pds">"</span></span>, <span class="pl-v">stringsAsFactors</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">na.strings</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>))
 
-pml_test &lt;- read.csv("pml-testing.csv", stringsAsFactors = FALSE, na.strings = c("", " "))
-</code></pre>
+<span class="pl-smi">pml_test</span> <span class="pl-k">&lt;-</span> read.csv(<span class="pl-s"><span class="pl-pds">"</span>pml-testing.csv<span class="pl-pds">"</span></span>, <span class="pl-v">stringsAsFactors</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>, <span class="pl-v">na.strings</span> <span class="pl-k">=</span> c(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span> <span class="pl-pds">"</span></span>))</pre></div>
 
 <h4>
 <a id="peek-at-the-data" class="anchor" href="#peek-at-the-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Peek at the data</h4>
 
-<pre><code>## Limiting the output for clarity
-str(pml_train, list.len=10)
+<div class="highlight highlight-source-r"><pre><span class="pl-c">## Limiting the output for clarity</span>
+str(<span class="pl-smi">pml_train</span>, <span class="pl-v">list.len</span><span class="pl-k">=</span><span class="pl-c1">10</span>)</pre></div>
 
-## 'data.frame':    19622 obs. of  160 variables:
+<pre><code>## 'data.frame':    19622 obs. of  160 variables:
 ##  $ X                       : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ user_name               : chr  "carlitos" "carlitos" "carlitos" "carlitos" ...
 ##  $ raw_timestamp_part_1    : int  1323084231 1323084231 1323084231 1323084232 1323084232 1323084232 1323084232 1323084232 1323084232 1323084232 ...
@@ -84,10 +84,11 @@ str(pml_train, list.len=10)
 ##  $ pitch_belt              : num  8.07 8.07 8.07 8.05 8.07 8.06 8.09 8.13 8.16 8.17 ...
 ##  $ yaw_belt                : num  -94.4 -94.4 -94.4 -94.4 -94.4 -94.4 -94.4 -94.4 -94.4 -94.4 ...
 ##   [list output truncated]
+</code></pre>
 
-str(pml_test , list.len=10)
+<div class="highlight highlight-source-r"><pre>str(<span class="pl-smi">pml_test</span> , <span class="pl-v">list.len</span><span class="pl-k">=</span><span class="pl-c1">10</span>)</pre></div>
 
-## 'data.frame':    20 obs. of  160 variables:
+<pre><code>## 'data.frame':    20 obs. of  160 variables:
 ##  $ X                       : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ user_name               : chr  "pedro" "jeremy" "jeremy" "adelmo" ...
 ##  $ raw_timestamp_part_1    : int  1323095002 1322673067 1322673075 1322832789 1322489635 1322673149 1322673128 1322673076 1323084240 1322837822 ...
@@ -101,171 +102,153 @@ str(pml_test , list.len=10)
 ##   [list output truncated]
 </code></pre>
 
-<p>From the above we see that features 1-7 are metadata in Training
-dataset. In the Test dataset we have "Problem_id" in addition to above.
-So we'll remove those columns from the dataset. The remainig features
-are all numeric, so it's good idea to explicitly convert these to
-numeric datatype, as some may not have converted automatically while
-reading.</p>
+<p>From the above we see that features 1-7 are metadata in Training dataset. In the Test dataset we have "Problem_id" in addition to above. So we'll remove those columns from the dataset.
+The remainig features are all numeric, so it's good idea to explicitly convert these to numeric datatype, as some may not have converted automatically while reading.</p>
 
 <h4>
 <a id="clean-and-convert-to-numeric" class="anchor" href="#clean-and-convert-to-numeric" aria-hidden="true"><span class="octicon octicon-link"></span></a>Clean and Convert to Numeric</h4>
 
-<pre><code># Remove metadata columns.
-pml_train &lt;- pml_train[,-c(1:7)]
-pml_test &lt;- pml_test[,-c(1:7,160)]
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Remove metadata columns.</span>
+<span class="pl-smi">pml_train</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">pml_train</span>[,<span class="pl-k">-</span>c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">7</span>)]
+<span class="pl-smi">pml_test</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">pml_test</span>[,<span class="pl-k">-</span>c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">7</span>,<span class="pl-c1">160</span>)]
 
-# convert all columns to Numeric except 'classe'
-pml_train[,c(1:152)]&lt;- sapply(pml_train[,c(1:152)],as.numeric)
-pml_test[,c(1:152)]&lt;- sapply(pml_test[,c(1:152)],as.numeric)
+<span class="pl-c"># convert all columns to Numeric except 'classe'</span>
+<span class="pl-smi">pml_train</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">152</span>)]<span class="pl-k">&lt;-</span> sapply(<span class="pl-smi">pml_train</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">152</span>)],<span class="pl-smi">as.numeric</span>)
+<span class="pl-smi">pml_test</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">152</span>)]<span class="pl-k">&lt;-</span> sapply(<span class="pl-smi">pml_test</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">152</span>)],<span class="pl-smi">as.numeric</span>)</pre></div>
+
+<p>Next it's observed that there are several features with NA data. As the data has been gathered via sensors, imputing missing values will not yield correct results. Therefore it'd be appropriate to discard those features/columns.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c">## identify NA columns</span>
+<span class="pl-smi">na.cols</span><span class="pl-k">&lt;-</span> sapply(<span class="pl-smi">pml_train</span>[,<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">152</span>], <span class="pl-smi">anyNA</span>)
+summary(<span class="pl-smi">na.cols</span>)</pre></div>
+
+<pre><code>##    Mode   FALSE    TRUE    NA's 
+## logical      52     100       0
 </code></pre>
 
-<p>Next it's observed that there are several features with NA data. As the
-data has been gathered via sensors, imputing missing values will not
-yield correct results. Therefore it'd be appropriate to discard those
-features/columns.</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c">#Filter NA columns</span>
+<span class="pl-smi">d_train</span><span class="pl-k">&lt;-</span><span class="pl-smi">pml_train</span>[,<span class="pl-k">!</span><span class="pl-smi">na.cols</span>]
+dim(<span class="pl-smi">d_train</span>)</pre></div>
 
-<pre><code>## identify NA columns
-na.cols&lt;- sapply(pml_train[,1:152], anyNA)
-summary(na.cols)
-
-##    Mode   FALSE    TRUE    NA's 
-## logical      52     100       0
-
-#Filter NA columns
-d_train&lt;-pml_train[,!na.cols]
-dim(d_train)
-
-## [1] 19622    53
+<pre><code>## [1] 19622    53
 </code></pre>
 
 <h4>
 <a id="split-data-for-cross-validation" class="anchor" href="#split-data-for-cross-validation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Split Data for cross validation.</h4>
 
-<p>Now we'll partition data for cross validation purpose. For the purpose
-of this project we'll implement a 60/40 split based on the 'classe'
-variable.</p>
+<p>Now we'll partition data for cross validation purpose.
+For the purpose of this project we'll implement a 60/40 split based on the 'classe' variable. </p>
 
-<pre><code># Load required packages
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Load required packages</span>
 
-library(caret)
+library(<span class="pl-smi">caret</span>)
+library(<span class="pl-smi">randomForest</span>)</pre></div>
 
-## Loading required package: lattice
-## Loading required package: ggplot2
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Split pml_train into Train and Test Set </span>
 
-library(randomForest)
+<span class="pl-smi">d</span><span class="pl-k">&lt;-</span> createDataPartition(<span class="pl-smi">d_train</span><span class="pl-k">$</span><span class="pl-smi">classe</span>,<span class="pl-v">p</span><span class="pl-k">=</span>.<span class="pl-c1">60</span>, <span class="pl-v">list</span><span class="pl-k">=</span><span class="pl-c1">FALSE</span> )
 
-## randomForest 4.6-12
-## Type rfNews() to see new features/changes/bug fixes.
-
-# Split pml_train into Train and Test Set 
-
-d&lt;- createDataPartition(d_train$classe,p=.60, list=FALSE )
-
-t_train &lt;- d_train[d,]
-t_test &lt;- d_train[-d,]
-</code></pre>
+<span class="pl-smi">t_train</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">d_train</span>[<span class="pl-smi">d</span>,]
+<span class="pl-smi">t_test</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">d_train</span>[<span class="pl-k">-</span><span class="pl-smi">d</span>,]</pre></div>
 
 <h4>
 <a id="model-fit" class="anchor" href="#model-fit" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model Fit</h4>
 
-<pre><code>## Using Random Forest Algorithm
+<p>We'll plan to build a model with 500 trees. Also to check variable importance, we'll set the flag TRUE.</p>
 
-set.seed(2016)
-d_fit &lt;- randomForest(as.factor(classe)~., data = t_train, importance = TRUE, ntree=500)
-</code></pre>
+<div class="highlight highlight-source-r"><pre><span class="pl-c">## Using Random Forest Algorithm</span>
+
+set.seed(<span class="pl-c1">2016</span>)
+<span class="pl-smi">d_fit</span> <span class="pl-k">&lt;-</span> randomForest(as.factor(<span class="pl-smi">classe</span>)<span class="pl-k">~</span>., <span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">t_train</span>, <span class="pl-v">importance</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>, <span class="pl-v">ntree</span><span class="pl-k">=</span><span class="pl-c1">500</span>)</pre></div>
 
 <h4>
 <a id="taking-a-look-at-the-model" class="anchor" href="#taking-a-look-at-the-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Taking a look at the model</h4>
 
-<pre><code>d_fit
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">d_fit</span></pre></div>
 
-## 
+<pre><code>## 
 ## Call:
 ##  randomForest(formula = as.factor(classe) ~ ., data = t_train,      importance = TRUE, ntree = 500) 
 ##                Type of random forest: classification
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 7
 ## 
-##         OOB estimate of  error rate: 0.7%
+##         OOB estimate of  error rate: 0.58%
 ## Confusion matrix:
-##      A    B    C    D    E class.error
-## A 3344    3    1    0    0 0.001194743
-## B   11 2260    8    0    0 0.008336990
-## C    0   21 2030    3    0 0.011684518
-## D    0    0   24 1904    2 0.013471503
-## E    0    0    1    8 2156 0.004157044
+##      A    B    C    D    E  class.error
+## A 3346    2    0    0    0 0.0005973716
+## B    9 2263    7    0    0 0.0070206231
+## C    0   12 2039    3    0 0.0073028238
+## D    0    0   23 1906    1 0.0124352332
+## E    0    0    2    9 2154 0.0050808314
 </code></pre>
 
-<p>From above it's observed that the Out-Of-Bag error rate is <code>0.51%</code></p>
+<p>From above it's observed that the Out-Of-Bag error rate is <code>0.58%</code>.
+We also see that the model is built with 7 variables at each split.</p>
 
 <h4>
 <a id="variable-importance-plot" class="anchor" href="#variable-importance-plot" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variable Importance Plot</h4>
 
-<p>Here lets observe which features were considered in the model and it's
-importance as given by Accuracy metric.</p>
+<p>Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.</p>
 
-<pre><code>varImpPlot(d_fit, sort = TRUE, n.var = 15 , main = "Variable Importance Plot", pch=16, type = 1)
-</code></pre>
+<div class="highlight highlight-source-r"><pre>varImpPlot(<span class="pl-smi">d_fit</span>, <span class="pl-v">sort</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>, <span class="pl-v">n.var</span> <span class="pl-k">=</span> <span class="pl-c1">15</span> , <span class="pl-v">main</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Variable Importance Plot<span class="pl-pds">"</span></span>, <span class="pl-v">pch</span><span class="pl-k">=</span><span class="pl-c1">16</span>, <span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>)</pre></div>
 
-<p><img src="Analysis_files/figure-markdown_strict/unnamed-chunk-10-1.png" alt=""></p>
+<p><img src="Analysis_files/figure-html/unnamed-chunk-10-1.png" title="" alt="" width="672"></p>
 
 <h4>
 <a id="validating-the-model" class="anchor" href="#validating-the-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Validating the model</h4>
 
-<p>Here we'll predict the <code>classe</code> outcome for out partitioned test data
-from the training set. This will confirmation if the model is a good fit
-or not. Running the confusion matrix gives us the Accuracy, Sensitivity
-and Specificity of the predictions.</p>
+<p>Here we'll predict the <code>classe</code> outcome for out partitioned test data from the training set. 
+This will confirmation if the model is a good fit or not.
+Running the confusion matrix gives us the Accuracy, Sensitivity and Specificity of the predictions.</p>
 
-<pre><code>pred_t_test &lt;- predict(d_fit, t_test, type="class")
-p&lt;- data.frame(pred_t_test, stringsAsFactors = FALSE)
-confusionMatrix(t_test$classe, p$pred_t_test)
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">pred_t_test</span> <span class="pl-k">&lt;-</span> predict(<span class="pl-smi">d_fit</span>, <span class="pl-smi">t_test</span>, <span class="pl-v">type</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
+<span class="pl-smi">p</span><span class="pl-k">&lt;-</span> <span class="pl-k">data.frame</span>(<span class="pl-smi">pred_t_test</span>, <span class="pl-v">stringsAsFactors</span> <span class="pl-k">=</span> <span class="pl-c1">FALSE</span>)
+confusionMatrix(<span class="pl-smi">t_test</span><span class="pl-k">$</span><span class="pl-smi">classe</span>, <span class="pl-smi">p</span><span class="pl-k">$</span><span class="pl-smi">pred_t_test</span>)</pre></div>
 
-## Confusion Matrix and Statistics
+<pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2230    1    0    0    1
-##          B    7 1506    5    0    0
-##          C    0    9 1358    1    0
-##          D    0    0   12 1274    0
+##          A 2227    1    0    0    4
+##          B   17 1496    5    0    0
+##          C    0   13 1354    1    0
+##          D    0    0    5 1279    2
 ##          E    0    0    0    1 1441
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9953          
-##                  95% CI : (0.9935, 0.9967)
-##     No Information Rate : 0.2851          
+##                Accuracy : 0.9938          
+##                  95% CI : (0.9918, 0.9954)
+##     No Information Rate : 0.286           
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.994           
+##                   Kappa : 0.9921          
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9969   0.9934   0.9876   0.9984   0.9993
-## Specificity            0.9996   0.9981   0.9985   0.9982   0.9998
-## Pos Pred Value         0.9991   0.9921   0.9927   0.9907   0.9993
-## Neg Pred Value         0.9988   0.9984   0.9974   0.9997   0.9998
-## Prevalence             0.2851   0.1932   0.1752   0.1626   0.1838
-## Detection Rate         0.2842   0.1919   0.1731   0.1624   0.1837
+## Sensitivity            0.9924   0.9907   0.9927   0.9984   0.9959
+## Specificity            0.9991   0.9965   0.9978   0.9989   0.9998
+## Pos Pred Value         0.9978   0.9855   0.9898   0.9946   0.9993
+## Neg Pred Value         0.9970   0.9978   0.9985   0.9997   0.9991
+## Prevalence             0.2860   0.1925   0.1738   0.1633   0.1844
+## Detection Rate         0.2838   0.1907   0.1726   0.1630   0.1837
 ## Detection Prevalence   0.2845   0.1935   0.1744   0.1639   0.1838
-## Balanced Accuracy      0.9983   0.9958   0.9930   0.9983   0.9996
+## Balanced Accuracy      0.9958   0.9936   0.9953   0.9987   0.9978
 </code></pre>
 
-<p>From above metrics, it appears that our model Accuracy of 99%. This is
-a very confident measure, so now we can run the test dataset on this
-model for prediction.</p>
+<p>From above metrics, it appears that our model Accuracy of 99%.
+This is a very confident measure, so now we can run the test dataset on this model for prediction.</p>
 
 <h4>
 <a id="predicting-on-the-given-test-dataset" class="anchor" href="#predicting-on-the-given-test-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Predicting on the given test dataset.</h4>
 
-<pre><code>pred_pml_test &lt;- predict(d_fit, pml_test, type="class")
-pred_pml_test
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">pred_pml_test</span> <span class="pl-k">&lt;-</span> predict(<span class="pl-smi">d_fit</span>, <span class="pl-smi">pml_test</span>, <span class="pl-v">type</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>class<span class="pl-pds">"</span></span>)
+<span class="pl-smi">pred_pml_test</span></pre></div>
 
-##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
 ##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 
 ## Levels: A B C D E
 </code></pre>
@@ -273,22 +256,21 @@ pred_pml_test
 <h4>
 <a id="generate-prediction-submission-files" class="anchor" href="#generate-prediction-submission-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate Prediction Submission Files</h4>
 
-<pre><code>pml_write_files = function(x){
-  n = length(x)
-  for(i in 1:n){
-    filename = paste0("problem_id_",i,".txt")
-    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+<div class="highlight highlight-source-r"><pre><span class="pl-v">pml_write_files</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">x</span>){
+  <span class="pl-v">n</span> <span class="pl-k">=</span> length(<span class="pl-smi">x</span>)
+  <span class="pl-k">for</span>(<span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-smi">n</span>){
+    <span class="pl-v">filename</span> <span class="pl-k">=</span> paste0(<span class="pl-s"><span class="pl-pds">"</span>problem_id_<span class="pl-pds">"</span></span>,<span class="pl-smi">i</span>,<span class="pl-s"><span class="pl-pds">"</span>.txt<span class="pl-pds">"</span></span>)
+    write.table(<span class="pl-smi">x</span>[<span class="pl-smi">i</span>],<span class="pl-v">file</span><span class="pl-k">=</span><span class="pl-smi">filename</span>,<span class="pl-v">quote</span><span class="pl-k">=</span><span class="pl-c1">FALSE</span>,<span class="pl-v">row.names</span><span class="pl-k">=</span><span class="pl-c1">FALSE</span>,<span class="pl-v">col.names</span><span class="pl-k">=</span><span class="pl-c1">FALSE</span>)
   }
 }
 
-# Run the function to generate the submission files.
-pml_write_files(pred_pml_test)
-</code></pre>
+<span class="pl-c"># Run the function to generate the submission files.</span>
+pml_write_files(<span class="pl-smi">pred_pml_test</span>)</pre></div>
 
 <h2>
 <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
 
-<p>As the accuracy of our model is 99% and the error rate is quite low 0.7%, we can conclude that the predictions for test data would be quite accurate.</p>
+<p>The estimated error rate of our model is quite low 0.58% and the cross validation Accuracy is 99%. We can conclude that the predictions on Test Dataset will be quite accurate.</p>
 
 <pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
 ##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 

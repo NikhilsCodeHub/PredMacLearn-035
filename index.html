@@ -182,7 +182,7 @@ We also see that the model is built with 7 variables at each split.</p>
 <h4>
 <a id="variable-importance-plot" class="anchor" href="#variable-importance-plot" aria-hidden="true"><span class="octicon octicon-link"></span></a>Variable Importance Plot</h4>
 
-<p>Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.</p>
+<p>Here lets observe which features were considered in the model and it's importance as given by Accuracy metric. We'll pick the top 15 variables for plotting.</p>
 
 <div class="highlight highlight-source-r"><pre>varImpPlot(<span class="pl-smi">d_fit</span>, <span class="pl-v">sort</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>, <span class="pl-v">n.var</span> <span class="pl-k">=</span> <span class="pl-c1">15</span> , <span class="pl-v">main</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Variable Importance Plot<span class="pl-pds">"</span></span>, <span class="pl-v">pch</span><span class="pl-k">=</span><span class="pl-c1">16</span>, <span class="pl-v">type</span> <span class="pl-k">=</span> <span class="pl-c1">1</span>)</pre></div>
 

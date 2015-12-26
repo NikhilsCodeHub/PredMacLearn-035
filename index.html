@@ -11,9 +11,11 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Activity Tracker Analysis</h1>
+      <h1 class="project-name">Predmaclearn-035</h1>
       <h2 class="project-tagline">Practical Machine Learning - Coursera</h2>
       <a href="https://github.com/NikhilsCodeHub/PredMacLearn-035" class="btn">View on GitHub</a>
+      <a href="https://github.com/NikhilsCodeHub/PredMacLearn-035/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/NikhilsCodeHub/PredMacLearn-035/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -180,19 +182,19 @@ d_fit &lt;- randomForest(as.factor(classe)~., data = t_train, importance = TRUE,
 
 ## 
 ## Call:
-##  randomForest(formula = as.factor(classe) ~ ., data = t_train,      importance = TRUE, ntree = 1000) 
+##  randomForest(formula = as.factor(classe) ~ ., data = t_train,      importance = TRUE, ntree = 500) 
 ##                Type of random forest: classification
-##                      Number of trees: 1000
+##                      Number of trees: 500
 ## No. of variables tried at each split: 7
 ## 
-##         OOB estimate of  error rate: 0.61%
+##         OOB estimate of  error rate: 0.7%
 ## Confusion matrix:
-##      A    B    C    D    E  class.error
-## A 3345    0    0    1    2 0.0008960573
-## B   13 2259    7    0    0 0.0087757789
-## C    0   12 2042    0    0 0.0058422590
-## D    0    0   23 1906    1 0.0124352332
-## E    0    0    4    9 2152 0.0060046189
+##      A    B    C    D    E class.error
+## A 3344    3    1    0    0 0.001194743
+## B   11 2260    8    0    0 0.008336990
+## C    0   21 2030    3    0 0.011684518
+## D    0    0   24 1904    2 0.013471503
+## E    0    0    1    8 2156 0.004157044
 </code></pre>
 
 <p>From above it's observed that the Out-Of-Bag error rate is <code>0.51%</code></p>
@@ -253,7 +255,7 @@ confusionMatrix(t_test$classe, p$pred_t_test)
 ## Balanced Accuracy      0.9983   0.9958   0.9930   0.9983   0.9996
 </code></pre>
 
-<p>From above metrics, it appears that our model Accuracy of 99.3%. This is
+<p>From above metrics, it appears that our model Accuracy of 99%. This is
 a very confident measure, so now we can run the test dataset on this
 model for prediction.</p>
 
@@ -281,6 +283,16 @@ pred_pml_test
 
 # Run the function to generate the submission files.
 pml_write_files(pred_pml_test)
+</code></pre>
+
+<h2>
+<a id="summary" class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>As the accuracy of our model is 99% and the error rate is quite low 0.7%, we can conclude that the predictions for test data would be quite accurate.</p>
+
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 
+## Levels: A B C D E
 </code></pre>
 
       <footer class="site-footer">

@@ -118,7 +118,7 @@ From above it's observed that the Out-Of-Bag error rate is `0.58%`.
 We also see that the model is built with 7 variables at each split.
 
 #### Variable Importance Plot
-Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.
+Here lets observe which features were considered in the model and it's importance as given by Accuracy metric. We'll pick the top 15 variables for plotting.
 ```{r }
 
 varImpPlot(d_fit, sort = TRUE, n.var = 15 , main = "Variable Importance Plot", pch=16, type = 1)

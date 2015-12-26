@@ -1,0 +1,153 @@
+---
+title: "Activity Tracker Analysis"
+output: html_document
+---
+
+### Description 
+
+In this project, the goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. 
+The objective of the project is to predict the manner in which they did the exercise.
+
+The training data for this project is available here: 
+
+https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+
+The test data is available here: 
+
+https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
+
+The data for this project is obtained from this source: http://groupware.les.inf.puc-rio.br/har. 
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+### Analysis
+
+#### Download Data.
+```{r eval=FALSE}
+url_train <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+
+url_test <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+
+download.file(url = url_train, destfile = "pml-training.csv")
+
+download.file(url = url_test, destfile = "pml-testing.csv")
+
+```
+
+
+### Getting and Cleaning Data
+
+
+```{r cache=TRUE}
+pml_train <- read.csv("pml-training.csv", stringsAsFactors = FALSE, na.strings = c("", " "))
+
+pml_test <- read.csv("pml-testing.csv", stringsAsFactors = FALSE, na.strings = c("", " "))
+```
+
+#### Peek at the data
+```{r  cache=TRUE}
+## Limiting the output for clarity
+str(pml_train, list.len=10)
+str(pml_test , list.len=10)
+```
+
+From the above we see that features 1-7 are metadata in Training dataset. In the Test dataset we have "Problem_id" in addition to above. So we'll remove those columns from the dataset.
+The remainig features are all numeric, so it's good idea to explicitly convert these to numeric datatype, as some may not have converted automatically while reading.
+
+#### Clean and Convert to Numeric
+```{r cache=TRUE, warning=FALSE}
+# Remove metadata columns.
+pml_train <- pml_train[,-c(1:7)]
+pml_test <- pml_test[,-c(1:7,160)]
+
+# convert all columns to Numeric except 'classe'
+pml_train[,c(1:152)]<- sapply(pml_train[,c(1:152)],as.numeric)
+pml_test[,c(1:152)]<- sapply(pml_test[,c(1:152)],as.numeric)
+```
+
+Next it's observed that there are several features with NA data. As the data has been gathered via sensors, imputing missing values will not yield correct results. Therefore it'd be appropriate to discard those features/columns.
+
+```{r cache=TRUE}
+## identify NA columns
+na.cols<- sapply(pml_train[,1:152], anyNA)
+summary(na.cols)
+#Filter NA columns
+d_train<-pml_train[,!na.cols]
+dim(d_train)
+```
+
+#### Split Data for cross validation.
+Now we'll partition data for cross validation purpose.
+For the purpose of this project we'll implement a 60/40 split based on the 'classe' variable. 
+
+```{r cache=TRUE}
+# Split pml_train into Train and Test Set 
+library(caret)
+library(randomForest)
+
+d<- createDataPartition(d_train$classe,p=.60, list=FALSE )
+
+t_train <- d_train[d,]
+t_test <- d_train[-d,]
+```
+
+#### Model Fit
+
+```{r cache=TRUE}
+## Using Direct Random Forest function
+
+set.seed(2016)
+d_fit <- randomForest(as.factor(classe)~., data = t_train, importance = TRUE, ntree=500)
+```
+
+#### Taking a look at the model 
+```{r}
+d_fit
+
+```
+From above it's observed that the Out-Of-Bag error rate is `0.51%`
+
+#### Variable Importance Plot
+Here lets observe which features were considered in the model and it's importance as given by Accuracy metric.
+```{r}
+varImpPlot(d_fit, sort = TRUE, n.var = 15 , main = "Variable Importance Plot", pch=16, type = 1)
+```
+
+#### Validating the model
+Here we'll predict the `classe` outcome for out partitioned test data from the training set. 
+This will confirmation if the model is a good fit or not.
+Running the confusion matrix gives us the Accuracy, Sensitivity and Specificity of the predictions.
+
+```{r}
+pred_t_test <- predict(d_fit, t_test, type="class")
+p<- data.frame(pred_t_test, stringsAsFactors = FALSE)
+confusionMatrix(t_test$classe, p$pred_t_test)
+
+```
+
+#### Predicting on the given test dataset.
+```{r cache=TRUE} 
+pred_pml_test <- predict(d_fit, pml_test, type="class")
+pred_pml_test
+```
+
+```{r eval=FALSE}
+pml_write_files = function(x){
+  n = length(x)
+  for(i in 1:n){
+    filename = paste0("problem_id_",i,".txt")
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+  }
+}
+
+# Run the function to generate the submission files.
+pml_write_files 
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
